@@ -12,7 +12,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU Lesser General Public License for more details.
 *
-* Copyright (c) 2002-2017 Hitachi Vantara..  All rights reserved.
+* Copyright (c) 2002-2018 Hitachi Vantara. All rights reserved.
 */
 
 package org.pentaho.platform.dataaccess.datasource.wizard.service.agile;
@@ -554,7 +554,9 @@ public abstract class StagingTransformGenerator extends PentahoBase {
 
     for ( ColumnInfo column : columns ) {
 
-      if ( column != null && !column.isIgnore() && column.getDataType() == DataType.DATE ) {
+      if ( column != null && !column.isIgnore()
+        && ( column.getDataType() == DataType.DATE
+          || column.getDataType() == DataType.TIMESTAMP ) ) {
         // see if we need to break out the date fields
         int dateBreakOut = column.getDateFieldBreakout();
 

@@ -12,7 +12,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU Lesser General Public License for more details.
 *
-* Copyright (c) 2002-2017 Hitachi Vantara..  All rights reserved.
+* Copyright (c) 2002-2018 Hitachi Vantara. All rights reserved.
 */
 
 package org.pentaho.platform.dataaccess.datasource.wizard.csv;
@@ -457,6 +457,7 @@ public class CsvUtils extends PentahoBase {
   }
 
   private DataType convertDataType( int type ) {
+    // This is for a conversion from ValueMetaInterface to DataType.
     switch ( type ) {
       case 1:
       case 5:
@@ -466,6 +467,8 @@ public class CsvUtils extends PentahoBase {
         return DataType.DATE;
       case 4:
         return DataType.BOOLEAN;
+      case 9:
+        return DataType.TIMESTAMP;
       default:
         return DataType.STRING;
     }

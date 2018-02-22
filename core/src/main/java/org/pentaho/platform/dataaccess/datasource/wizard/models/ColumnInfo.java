@@ -12,7 +12,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU Lesser General Public License for more details.
 *
-* Copyright (c) 2002-2017 Hitachi Vantara..  All rights reserved.
+* Copyright (c) 2002-2018 Hitachi Vantara. All rights reserved.
 */
 
 package org.pentaho.platform.dataaccess.datasource.wizard.models;
@@ -270,7 +270,8 @@ public class ColumnInfo extends XulEventSourceAdapter implements Serializable {
 
   @Bindable
   public boolean getFormatStringsDisabled() {
-    return ( dataType != DataType.NUMERIC && dataType != DataType.DATE );
+    return ( dataType != DataType.NUMERIC
+      && ( dataType != DataType.DATE && dataType != DataType.TIMESTAMP ) );
   }
 
   @Bindable
@@ -285,7 +286,7 @@ public class ColumnInfo extends XulEventSourceAdapter implements Serializable {
       formatStrings.add( "$#,###" );
       formatStrings.add( "$#,###.00;($#,###.00)" );
 
-    } else if ( dataType == DataType.DATE ) {
+    } else if ( dataType == DataType.DATE || dataType == DataType.TIMESTAMP ) {
       formatStrings.addAll( DATE_FORMATS );
     }
     return formatStrings;

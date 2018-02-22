@@ -12,7 +12,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU Lesser General Public License for more details.
 *
-* Copyright (c) 2002-2017 Hitachi Vantara..  All rights reserved.
+* Copyright (c) 2002-2018 Hitachi Vantara. All rights reserved.
 */
 
 package org.pentaho.platform.dataaccess;
@@ -117,7 +117,7 @@ public class ConditionTest {
           //Exception for DataType STRING
           Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
             is( "[" + categoryName + "." + columnName + "] = [param:" + paramName + "]" ) );
-        } else if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+        } else if ( isDateOrTimestamp( dataType ) ) {
           Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
             is( "[" + categoryName + "." + columnName + "] " + operator.toString() + "DATEVALUE([param:" + values[ 0 ] + "])" ) );
         } else {
@@ -131,7 +131,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.EXACTLY_MATCHES.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "[" + categoryName + "." + columnName + "] = \"DATEVALUE([param:" + values[ 0 ] + "])\"" ) );
       } else {
@@ -141,7 +141,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.CONTAINS.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "CONTAINS([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {
@@ -151,7 +151,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.DOES_NOT_CONTAIN.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "NOT(CONTAINS([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\"))" ) );
       } else {
@@ -161,7 +161,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.BEGINS_WITH.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "BEGINSWITH([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {
@@ -171,7 +171,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.ENDS_WITH.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "ENDSWITH([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {
@@ -190,6 +190,11 @@ public class ConditionTest {
         is( "NOT(ISNA([" + categoryName + "." + columnName + "]))" ) );
     }
 
+  }
+
+  private boolean isDateOrTimestamp(DataType dataType) {
+    return dataType.getName().equals( DataType.DATE.getName() )
+        || dataType.getName().equals( DataType.TIMESTAMP.getName() );
   }
 
   @Test
@@ -211,7 +216,7 @@ public class ConditionTest {
             Assert.assertThat( icondition.getCondition( dataType.getName(), null ),
               is( "[" + categoryName + "." + columnName + "] " + operator.toString() + "\"" + values[ 0 ] + "\"" ) );
           }
-        } else if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+        } else if ( isDateOrTimestamp( dataType ) ) {
           Assert.assertThat( icondition.getCondition( dataType.getName(), null ),
             is( "[" + categoryName + "." + columnName + "] " + operator.toString() + "DATEVALUE(\"" + values[ 0 ] + "\")" ) );
         } else {
@@ -225,7 +230,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.EXACTLY_MATCHES.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "[" + categoryName + "." + columnName + "] = \"DATEVALUE([param:" + values[ 0 ] + "])\"" ) );
       } else {
@@ -235,7 +240,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.CONTAINS.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "CONTAINS([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {
@@ -245,7 +250,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.DOES_NOT_CONTAIN.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "NOT(CONTAINS([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\"))" ) );
       } else {
@@ -255,7 +260,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.BEGINS_WITH.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "BEGINSWITH([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {
@@ -265,7 +270,7 @@ public class ConditionTest {
 
       when( icondition.getOperator() ).thenReturn( Operator.ENDS_WITH.toString() );
 
-      if ( dataType.getName().equals( DataType.DATE.getName() ) ) {
+      if ( isDateOrTimestamp( dataType ) ) {
         Assert.assertThat( icondition.getCondition( dataType.getName(), paramName ),
           is( "ENDSWITH([" + categoryName + "." + columnName + "];\"DATEVALUE([param:" + values[ 0 ] + "])\")" ) );
       } else {

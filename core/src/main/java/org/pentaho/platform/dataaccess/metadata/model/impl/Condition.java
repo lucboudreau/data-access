@@ -12,7 +12,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU Lesser General Public License for more details.
 *
-* Copyright (c) 2002-2017 Hitachi Vantara..  All rights reserved.
+* Copyright (c) 2002-2018 Hitachi Vantara. All rights reserved.
 */
 
 package org.pentaho.platform.dataaccess.metadata.model.impl;
@@ -98,7 +98,8 @@ public class Condition implements ICondition {
     boolean enforceParameters = paramName != null;
     String columnName = "[" + getCategory() + "." + getColumn() + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$;
     // Date is a special case where we craft a formula function.
-    if ( type.equals( DataType.DATE.getName() ) ) {
+    if ( type.equals( DataType.DATE.getName() )
+      || type.equals( DataType.TIMESTAMP.getName() ) ) {
       if ( enforceParameters ) {
         // Due to the fact that the value of a Date is a forumula function, the tokenizing of
         // the value needs to happen here instead of letting the Operator class handle it.
